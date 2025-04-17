@@ -1,29 +1,32 @@
 package br.ce.wcaquino.tasks.functional;
 
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.util.concurrent.TimeUnit;
-
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.time.Duration;
 import org.junit.Assert;
 import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.remote.RemoteWebDriver;
 
 public class TasksTest {
 	
-	public WebDriver acessarAplicacao() {
+	public WebDriver acessarAplicacao() throws MalformedURLException {
 		
+//		ChromeOptions options = new ChromeOptions();
+//		WebDriver driver = new RemoteWebDriver(new URL("http://192.168.15.4:4444/wd/hub"), options);
 		WebDriver driver = new ChromeDriver();
 		driver.navigate().to("http://localhost:8001/tasks");
-		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+		driver.manage().window().maximize();
 		return driver;
 		
 	}
 	
 	@Test
-	public void deveSalvarTarefacomSucesso() {
+	public void deveSalvarTarefacomSucesso() throws MalformedURLException {
 		WebDriver driver = acessarAplicacao();
 		try {			
 
@@ -43,7 +46,7 @@ public class TasksTest {
 	}
 	
 	@Test
-	public void naoDeveSalvarTarefaSemDescricao() {
+	public void naoDeveSalvarTarefaSemDescricao() throws MalformedURLException {
 		WebDriver driver = acessarAplicacao();
 		try {			
 
@@ -63,7 +66,7 @@ public class TasksTest {
 	}
 	
 	@Test
-	public void naoDeveSalvarTarefaSemData() {
+	public void naoDeveSalvarTarefaSemData() throws MalformedURLException {
 		WebDriver driver = acessarAplicacao();
 		try {			
 
@@ -82,7 +85,7 @@ public class TasksTest {
 	}
 	
 	@Test
-	public void deveSalvarTarefacomDataPassada() {
+	public void deveSalvarTarefacomDataPassada() throws MalformedURLException {
 		WebDriver driver = acessarAplicacao();
 		try {			
 
